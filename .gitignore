@@ -1,0 +1,16 @@
+# gitignore - Specifies intentionally untracked files to ignore
+*~
+~*
+__pycache__
+.pylint.d
+build/
+dist/
+out/
+*.pyc
+*.dat
+*.xlsx
+*.pdf
+*.png
+*.html
+*.zip
+*.bat
