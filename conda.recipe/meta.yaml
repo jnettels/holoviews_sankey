@@ -1,0 +1,51 @@
+{% set data = load_setup_py_data() %}
+
+package:
+    name: holoviews_sankey
+    version: {{ data['version'] }}
+
+source:
+    path: ..
+
+build:
+    number: {{ GIT_DESCRIBE_NUMBER }}
+
+    script: pip install .
+
+    noarch: python
+
+    preserve_egg_dir: True
+
+    entry_points:
+        # Put any entry points (scripts to be generated automatically) here.
+        - holoviews_sankey = holoviews_sankey.__main__:main
+    
+requirements:
+    build:
+        - python
+        - setuptools
+        - setuptools_scm
+        - pandas
+
+    run:
+        - python
+        - pandas
+        - openpyxl
+        - bokeh
+        - holoviews
+        - selenium
+        - firefox
+        - geckodriver
+
+test:
+    source_files:
+       - holoviews_sankey/examples/Sankey.xlsx
+
+about:
+    home: https://github.com/jnettels/holoviews_sankey
+    summary: 'Plot sankey flowcharts from spreadheet data with holoviews'
+    description: 'Plot sankey flowcharts from spreadheet data with holoviews'
+    license: 'MIT'
+    license_file: LICENSE
+    author: 'Joris Zimmermann'
+    author_email: 'joris.zimmermann@stw.de'
