@@ -25,6 +25,10 @@ jobs:
       if: runner.os == 'Windows'
       run: conda init powershell
 
+    - name: Generate german locale (Linux only)
+      if: runner.os == 'Linux'
+      run: locale-gen de_DE.UTF-8  # fix unsupported locale setting
+
     - name: Install dependencies with conda
       run: |
         conda install conda-build setuptools setuptools_scm
