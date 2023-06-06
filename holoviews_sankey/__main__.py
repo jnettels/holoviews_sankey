@@ -14,7 +14,7 @@ def main():
     output_dir = args.__dict__.pop('output_dir')
     setup(args.__dict__.pop('log_level'),
           args.__dict__.pop('language')
-          )  # Perform some setup stuff
+          )  # Perform setup
 
     # Read in data as Pandas DataFrame (file name can be given via parser)
     df_dict = pd.read_excel(file_load, header=0, sheet_name=sheets)

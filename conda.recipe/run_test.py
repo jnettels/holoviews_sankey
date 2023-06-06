@@ -19,7 +19,7 @@ import os
 import pkg_resources  # requires setuptools
 import pandas as pd
 
-from holoviews_sankey import setup, run_option_parser, create_sankeys_from_dict
+from holoviews_sankey import setup, create_sankeys_from_dict
 
 
 def main_test():
@@ -31,25 +31,16 @@ def main_test():
             os.path.dirname(__file__),
             '..', 'holoviews_sankey', 'examples', 'Sankey.xlsx')))
 
-    # Run the comand line option parser
-    args = run_option_parser(file_default=file)
-    # Store the results, while removing the used arguments
-    # The remaining arguments will be handed to hv.Sankey().options()
-    file_load = args.__dict__.pop('file')
-    sheets = args.__dict__.pop('sheets')
-    output_dir = args.__dict__.pop('output_dir')
-    setup(args.__dict__.pop('log_level'),
-          args.__dict__.pop('language')
-          )  # Perform some setup stuff
+    setup()  # Perform setup
 
     # Read in data as Pandas DataFrame (file name can be given via parser)
     # For the 'noarch' conda build, the following file has to be accessed
     # not from a regular file path, but as a pkg resources object
-    with pkg_resources.resource_stream('holoviews_sankey', file_load) as path:
-        df_dict = pd.read_excel(path, header=0, sheet_name=sheets)
+    with pkg_resources.resource_stream('holoviews_sankey', file) as path:
+        df_dict = pd.read_excel(path, header=0, sheet_name=None)
 
     # Try to create sankey for each sheet in the workbook
-    create_sankeys_from_dict(df_dict, output_dir, file_load, **args.__dict__)
+    create_sankeys_from_dict(df_dict, file, output_dir='./out')
 
     return True
 

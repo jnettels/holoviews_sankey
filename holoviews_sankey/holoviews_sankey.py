@@ -64,11 +64,8 @@ from bokeh.layouts import gridplot
 logger = logging.getLogger(__name__)
 
 
-def create_sankeys_from_dict(df_dict, output_dir, file_load, **kwargs):
-    """Create sankey plots from a dictionary of DataFrames.
-
-
-    """
+def create_sankeys_from_dict(df_dict, file, output_dir, **kwargs):
+    """Create sankey plots from a dictionary of DataFrames."""
     sankey_list = []
     for sheet_name, df in df_dict.items():
         logger.info(sheet_name)
@@ -79,7 +76,7 @@ def create_sankeys_from_dict(df_dict, output_dir, file_load, **kwargs):
         filename = os.path.join(
             output_dir,
             os.path.splitext(
-                os.path.basename(file_load))[0]+' '+str(sheet_name))
+                os.path.basename(file))[0]+' '+str(sheet_name))
 
         try:
             # Create the plot figure from DataFrame
@@ -93,8 +90,8 @@ def create_sankeys_from_dict(df_dict, output_dir, file_load, **kwargs):
     # Create html output
     output_file(os.path.join(output_dir,
                              os.path.splitext(
-                                 os.path.basename(file_load))[0] + '.html'),
-                title=os.path.splitext(file_load)[0])
+                                 os.path.basename(file))[0] + '.html'),
+                title=os.path.splitext(file)[0])
     bokeh_grid = gridplot(sankey_list, ncols=1, sizing_mode='stretch_width')
     show(bokeh_grid)
 
@@ -250,7 +247,7 @@ def setup(log_level='INFO', language='de_DE.UTF-8'):
     locale.setlocale(locale.LC_ALL, language)
 
 
-def run_option_parser(file_default=None, sheets=None, output_dir='./out',
+def run_option_parser(file=None, sheets=None, output_dir='./out',
                       log_level='INFO', language='de_DE.UTF-8'):
     """Define and run the argument parser. Return the chosen file path."""
     description = 'Plot a Sankey chart from an Excel spreadheet.'
@@ -259,7 +256,7 @@ def run_option_parser(file_default=None, sheets=None, output_dir='./out',
                                      ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('-f', '--file', dest='file', help='Path to an Excel '
-                        'spreadsheet.', type=str, default=file_default)
+                        'spreadsheet.', type=str, required=True)
     parser.add_argument('-s', '--sheets', dest='sheets', nargs='+',
                         help='List of sheets in the file to process (use all '
                         'sheets if not defined).', default=sheets)
