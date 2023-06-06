@@ -27,7 +27,7 @@ jobs:
 
     - name: Generate german locale (Linux only)
       if: runner.os == 'Linux'
-      run: locale-gen de_DE.UTF-8  # fix unsupported locale setting
+      run: sudo locale-gen de_DE.UTF-8  # fix unsupported locale setting
 
     - name: Install dependencies with conda
       run: |
