@@ -1,4 +1,4 @@
-"""Initialize the package and define version."""
+"""Create png, svg and html sankey flowcharts from tabular data."""
 from pkg_resources import get_distribution, DistributionNotFound
 
 try:

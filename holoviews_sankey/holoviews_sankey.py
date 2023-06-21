@@ -20,7 +20,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-"""Plot a Sankey chart from an Excel spreadheet.
+"""Create png, svg and html sankey flowcharts from tabular data.
 
 Create a ``Sankey`` plot as png, svg and html with data from an Excel file.
 Uses ``Sankey.xlsx`` in the same directory per default, but can be started
