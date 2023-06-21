@@ -20,7 +20,7 @@ def main():
     df_dict = pd.read_excel(file_load, header=0, sheet_name=sheets)
 
     # Try to create sankey for each sheet in the workbook
-    create_sankeys_from_dict(df_dict, output_dir, file_load, **args.__dict__)
+    create_sankeys_from_dict(df_dict, file_load, output_dir, **args.__dict__)
 
 
 if __name__ == '__main__':
