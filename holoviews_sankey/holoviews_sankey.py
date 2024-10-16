@@ -104,7 +104,7 @@ def create_and_save_sankey(edges, filename=None, title='', title_html='',
                            width=1400, height=600,
                            fontsize=11, label_text_font_size='17pt',
                            node_width=45, node_padding=10, export_title=False,
-                           toolbar_location=None):
+                           toolbar_location=None, title_max_chars=None):
     """Use HoloViews to create a Sankey plot from the input data.
 
     This is the recommended function to implement into other Python scripts.
@@ -126,6 +126,10 @@ def create_and_save_sankey(edges, filename=None, title='', title_html='',
         palette (list or dict, optional): List or dictionary of colors related
         to entries in edges DataFrame. If dictionary, all undefined entries
         will be grey.
+
+        title_max_chars (int, optional): Number of characters to keep in the
+        title, to fit onto the image. Otherwise a .svg file might not be
+        usable in MS Word.
 
         Other arguments show inputs for ``hv.Sankey().options()``
 
@@ -202,6 +206,11 @@ def create_and_save_sankey(edges, filename=None, title='', title_html='',
 
     if export_title is True:  # Add the title to the file export
         bkplot.title.text = str(title)
+
+        if title_max_chars is not None:
+            # Only keep the first X characters to fit onto the image
+            # Otherwise a .svg might not be usable in MS Word!
+            bkplot.title.text = bkplot.title.text[:title_max_chars]
 
     if filename is not None:
         # Create the output folder, if it does not already exist
