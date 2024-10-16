@@ -51,7 +51,9 @@ See the help to show all arguments:
 
 """
 
+import sys
 import os
+from shutil import which
 import logging
 import argparse
 import inspect
@@ -62,6 +64,24 @@ from bokeh.layouts import gridplot
 
 # Define the logging function
 logger = logging.getLogger(__name__)
+
+
+def include_firefox_and_geckodriver_in_path():
+    """Add firefox and geckodriver executables to PATH.
+
+    In some conda environments, those paths were not properly defined
+    in PATH and could not be found by selenium (used for png export).
+
+    If firefox and geckodriver are found in PATH, nothing is changed.
+    """
+    PATH = os.environ['PATH'].split(os.pathsep)
+    if which("firefox") is None:
+        PATH.append(
+            os.path.join(os.path.dirname(sys.executable), 'Library', 'bin'))
+    if which("geckodriver") is None:
+        PATH.append(
+            os.path.join(os.path.dirname(sys.executable), 'Scripts'))
+    os.environ['PATH'] = os.pathsep.join(PATH)
 
 
 def create_sankeys_from_dict(df_dict, file, output_dir, **kwargs):
@@ -144,6 +164,7 @@ def create_and_save_sankey(edges, filename=None, title='', title_html='',
         # in task manager.
         # A solution is to manually define a webdriver that we can actually
         # close automatically:
+        include_firefox_and_geckodriver_in_path()
         web_driver = webdriver.create_firefox_webdriver()
     except Exception as ex:
         logger.exception(ex)
