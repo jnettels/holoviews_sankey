@@ -16,7 +16,7 @@
 """Define tests to run during build process."""
 import unittest
 import os
-import pkg_resources  # requires setuptools
+import importlib.resources
 import pandas as pd
 
 from holoviews_sankey import setup, create_sankeys_from_dict
@@ -36,7 +36,8 @@ def main_test():
     # Read in data as Pandas DataFrame (file name can be given via parser)
     # For the 'noarch' conda build, the following file has to be accessed
     # not from a regular file path, but as a pkg resources object
-    with pkg_resources.resource_stream('holoviews_sankey', file) as path:
+    res_path = importlib.resources.files('holoviews_sankey').joinpath(file)
+    with importlib.resources.as_file(res_path) as path:
         df_dict = pd.read_excel(path, header=0, sheet_name=None)
 
     # Try to create sankey for each sheet in the workbook
