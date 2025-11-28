@@ -30,14 +30,12 @@ requirements:
         - python
         - pandas
         - openpyxl
-        - bokeh <3.0  # For compatibility with selenium<4.3
-        - numpy <2.0  # For compatibility with bokeh<3.0
+        - bokeh
+        - numpy
         - holoviews
-        - jinja2 <=3.0.3  # For compatibility with holoviews
         # Selenium (combined with firefox and geckodriver) is
-        # required for png export. Version 4.18.1 of
-        # selenium had trouble finding 'selenium-manager.exe'
-        - selenium <4.3  # Prevent errors running firefox
+        # required for png export.
+        - selenium
         - conda-forge::firefox
         - conda-forge::geckodriver
 
