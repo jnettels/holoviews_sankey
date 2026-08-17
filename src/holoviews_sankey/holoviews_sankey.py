@@ -74,6 +74,13 @@ def include_firefox_and_geckodriver_in_path():
 
     If firefox and geckodriver are found in PATH, nothing is changed.
     """
+    try:
+        import geckodriver_autoinstaller
+        geckodriver_autoinstaller.install()
+    except ImportError:
+        pass
+
+
     PATH = os.environ['PATH'].split(os.pathsep)
     if which("firefox") is None:
         PATH.append(

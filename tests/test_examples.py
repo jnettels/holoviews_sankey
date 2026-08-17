@@ -25,13 +25,7 @@ from holoviews_sankey import setup, create_sankeys_from_dict
 def main_test():
     """Run the regular main method with an example input file."""
     # Get example user input. Directory is different in conda test environment
-    file = os.path.join(os.path.dirname(__file__),
-                        'tests', 'files', 'Sankey.xlsx')
-    if not os.path.exists(file):
-        file = os.path.relpath(os.path.abspath(os.path.join(
-            os.path.dirname(__file__),
-            '..', 'tests', 'files', 'Sankey.xlsx')))
-
+    file = os.path.join(os.path.dirname(__file__), 'files', 'Sankey.xlsx')
     setup()  # Perform setup
 
     # Read in data as Pandas DataFrame (file name can be given via parser)

@@ -1,0 +1,55 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "holoviews_sankey"
+description = "Plot sankey flowcharts from spreadheet data with holoviews"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Joris Zimmermann", email = "joris.zimmermann@siz-energieplus.de" }
+]
+keywords = ["sankey", "plots"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "pandas",
+    "openpyxl",
+    "bokeh",  # <3.7
+    "holoviews<1.23",  # Sankey 'edge_color' does not behave as expected
+    "selenium",
+    "geckodriver_autoinstaller @ https://github.com/yeongbin-jo/python-geckodriver-autoinstaller/archive/master.tar.gz",
+    # "firefox",  # needs to be installed manually
+]
+dynamic = ["version"]
+
+[project.scripts]
+holoviews_sankey = "holoviews_sankey.__main__:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov", "tox>=3.0"]
+
+[project.urls]
+Homepage = "https://github.com/jnettels/holoviews_sankey"
+Repository = "https://github.com/jnettels/holoviews_sankey"
+
+
+[tool.flit.module]
+name = "holoviews_sankey"
+path = "src"
+
+[tool.flit.sdist]
+include = [
+    "tests/examples/Sankey.xlsx",
+]
