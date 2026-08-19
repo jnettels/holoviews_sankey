@@ -35,7 +35,7 @@ jobs:
 
     - name: Install dependencies with conda
       run: |
-        conda install conda-build setuptools setuptools_scm
+        conda install conda-build
 
     - name: Build with conda
       run: |

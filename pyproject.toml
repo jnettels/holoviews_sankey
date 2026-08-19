@@ -51,5 +51,5 @@ path = "src"
 
 [tool.flit.sdist]
 include = [
-    "tests/examples/Sankey.xlsx",
+    "tests/files/Sankey.xlsx",
 ]
