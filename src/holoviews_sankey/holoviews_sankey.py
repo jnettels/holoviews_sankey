@@ -80,14 +80,27 @@ def include_firefox_and_geckodriver_in_path():
     except ImportError:
         pass
 
-
     PATH = os.environ['PATH'].split(os.pathsep)
+
     if which("firefox") is None:
-        PATH.append(
-            os.path.join(os.path.dirname(sys.executable), 'Library', 'bin'))
+        # Try to add a path that contains "firefox.exe" to PATH
+        path_firefox_install = r"C:\PROGRA~1\Mozilla Firefox"
+        conda_library_bin = os.path.join(os.path.dirname(sys.executable),
+                                         'Library', 'bin')
+        if os.path.exists(path_firefox_install):
+            # Try a "regular" firefox install on Windows
+            if path_firefox_install not in PATH:
+                PATH.append(path_firefox_install)
+        elif os.path.exists(conda_library_bin):
+            # Try an install at from a conda environment
+            if conda_library_bin not in PATH:
+                PATH.append(conda_library_bin)
     if which("geckodriver") is None:
-        PATH.append(
-            os.path.join(os.path.dirname(sys.executable), 'Scripts'))
+        conda_scripts = os.path.join(os.path.dirname(sys.executable),
+                                     'Scripts')
+        if os.path.exists(conda_scripts):
+            PATH.append(conda_scripts)
+
     os.environ['PATH'] = os.pathsep.join(PATH)
 
 
