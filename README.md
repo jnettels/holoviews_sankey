@@ -22,7 +22,13 @@ python -m holoviews_sankey --file .\Sankey.xlsx --width 1000  --label_text_font_
 Installation
 ------------
 
-This package can be installed via Anaconda with the following command:
+Installation via ``pip``:
+```
+pip install "holoviews_sankey @ https://github.com/jnettels/holoviews_sankey/archive/main.tar.gz"
+```
+(This package is not yet published on pypi.)
+
+Installation via Anaconda:
 ```
 conda install holoviews_sankey -c jnettels -c conda-forge
 ```
