@@ -26,8 +26,8 @@ classifiers = [
 dependencies = [
     "pandas",
     "openpyxl",
-    "bokeh",  # <3.7
-    "holoviews<1.23",  # Sankey 'edge_color' does not behave as expected
+    "bokeh",
+    "holoviews>=1.18",
     "selenium",
     "geckodriver_autoinstaller @ https://github.com/yeongbin-jo/python-geckodriver-autoinstaller/archive/master.tar.gz",
     # "firefox",  # needs to be installed manually
@@ -43,7 +43,6 @@ dev = ["pytest>=7.0", "pytest-cov", "tox>=3.0"]
 [project.urls]
 Homepage = "https://github.com/jnettels/holoviews_sankey"
 Repository = "https://github.com/jnettels/holoviews_sankey"
-
 
 [tool.flit.module]
 name = "holoviews_sankey"

@@ -30,7 +30,7 @@ requirements:
         - openpyxl
         - bokeh
         - numpy
-        - holoviews <1.23  # Sankey 'edge_color' does not behave as expected
+        - holoviews >=1.18
         # Selenium (combined with firefox and geckodriver) is
         # required for png export.
         - selenium

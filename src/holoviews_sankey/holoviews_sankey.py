@@ -61,6 +61,7 @@ import locale
 import holoviews as hv
 from bokeh.io import export_png, export_svgs, show, output_file, webdriver
 from bokeh.layouts import gridplot
+from packaging.version import parse
 
 # Define the logging function
 logger = logging.getLogger(__name__)
@@ -223,19 +224,31 @@ def create_and_save_sankey(edges, filename=None, title='', title_html='',
             return f'{x:n} {unit}'  # use locale setting for decimal sign
 
     # Use HoloViews to create the plot
-    hv_sankey = hv.Sankey(edges,
-                          vdims=hv.Dimension('Value', value_format=fmt)
-                          ).options(
+    hv_sankey = hv.Sankey(
+        edges,
+        vdims=hv.Dimension('Value', value_format=fmt)
+        )
+    hv_sankey = hv_sankey.options(
         width=width,
         height=height,
-        edge_color_index=edge_color_index,
         cmap=palette,
         edge_cmap=palette,
         node_width=node_width,  # default 15
         fontsize=fontsize,
         label_text_font_size=label_text_font_size,
         node_padding=node_padding,  # default 10
+        edge_color=hv.dim(edge_color_index).str(),  # holoviews>=1.23
+        node_color=hv.dim('index').str(),  # holoviews>=1.23
         )
+    if parse(hv.__version__) < parse("1.23"):
+        hv_sankey = hv_sankey.options(
+            edge_color_index=edge_color_index,
+            )
+    else:  # holoviews>=1.23
+        hv_sankey = hv_sankey.options(
+            edge_color=hv.dim(edge_color_index).str(),
+            node_color=hv.dim('index').str(),
+            )
 
     # HoloViews is mainly used for creating html content. Getting the simple
     # PNG is a little more involved
