@@ -14,5 +14,6 @@ out/
 *.html
 *.zip
 *.bat
+*.coverage
 
 .vscode
